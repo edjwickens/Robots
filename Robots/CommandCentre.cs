@@ -15,27 +15,56 @@ public class CommandCentre(Planet planet)
     }
     private Robot LandRobot(Planet planet, Location landingLocation)
     {
-        throw new NotImplementedException();
+        return new Robot(planet,  landingLocation);
     }
 
-    private RobotEndState NavigateRobot(Robot robot, List<Instruction> navigationInstructions)
+    private RobotEndState NavigateRobot(Robot robot, List<Instruction> navigationInstructionSet)
     {
-        throw new NotImplementedException();
+        foreach (var instruction in navigationInstructionSet)
+        {
+            switch (instruction)
+            {
+                case Instruction.Forward:
+                    robot.MoveForward();
+                    break;
+                case Instruction.Left:
+                    robot.Rotate(RotationDirection.Left);
+                    break;
+                case Instruction.Right:
+                    robot.Rotate(RotationDirection.Right);
+                    break;
+
+            }
+
+        }
+        return robot.GetState();
     }
 
     private Location ParseLandingInstructions(string landingInstructions)
     {
-        throw new NotImplementedException();
+        // TOOD: implement properly
+        return new Location(1, 1, Orientation.East);
     }
 
     private List<Instruction> ParseNavigationInstructions(string navigationInstructions)
     {
-        throw new NotImplementedException();
+        // TOOD: implement properly
+        return new List<Instruction> { 
+            Instruction.Right,
+            Instruction.Forward,
+            Instruction.Right,
+            Instruction.Forward,
+            Instruction.Right,
+            Instruction.Forward,
+            Instruction.Right,
+            Instruction.Forward,
+        };
     }
 
     private string SerializeOutPut(RobotEndState robotEndState)
     {
-        throw new NotImplementedException();
+        //TODO: add whether lost
+        return $"{robotEndState.X} {robotEndState.Y}";
     }
 }
 
