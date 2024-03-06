@@ -1,10 +1,18 @@
 ﻿
 namespace Robots;
 
-public class Planet(int xBound, int yBound)
+public class Planet
 {
-    private readonly int XBound = xBound;
-    private readonly int YBound = yBound;
+    public Planet(int xBound, int yBound)
+    {
+        if (xBound > 50 || yBound > 50)
+            throw new ArgumentException("The maximum value for any coordinate is 50");
+
+        XBound = xBound;
+        YBound = yBound;
+    }
+    private readonly int XBound;
+    private readonly int YBound;
 
     private readonly HashSet<KeyValuePair<int, int>> ScentCoordinates = [];
 
@@ -25,7 +33,5 @@ public class Planet(int xBound, int yBound)
             return true;
         return false;
     }
-
-
 
 }

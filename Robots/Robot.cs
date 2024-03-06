@@ -11,10 +11,10 @@ internal class Robot(Planet planet, Location landingLocation)
         return new RobotEndState(Location.X, Location.Y, Location.Orientation, IsLost);
     }
 
-    internal void MoveForward()
+    internal bool TryMoveForward()
     {
         if (IsLost)
-            return;
+            return false;
 
         var location = new Location(Location.X, Location.Y, Location.Orientation);
 
@@ -46,6 +46,8 @@ internal class Robot(Planet planet, Location landingLocation)
         }
         else
             Location = location;
+
+        return true;
     }
 
     internal void Rotate(RotationDirection rotationDirection)

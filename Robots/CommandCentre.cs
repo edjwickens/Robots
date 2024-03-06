@@ -27,7 +27,7 @@ public class CommandCentre(Planet planet)
             switch (instruction)
             {
                 case Instruction.Forward:
-                    robot.MoveForward();
+                    robot.TryMoveForward();
                     break;
                 case Instruction.Left:
                     robot.Rotate(RotationDirection.Left);
