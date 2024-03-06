@@ -41,9 +41,8 @@ internal class Robot(Planet planet, Location landingLocation)
             if(Planet.HasScent(location))
                 IsLost = false;
 
-            if(IsLost)
+            if (IsLost)
                 Planet.AddScent(location);
-
         }
         else
             Location = location;
@@ -51,6 +50,9 @@ internal class Robot(Planet planet, Location landingLocation)
 
     internal void Rotate(RotationDirection rotationDirection)
     {
+        if(IsLost)
+            return;
+
         int orientation = (int)Location.Orientation;
         if (rotationDirection == RotationDirection.Right)
             orientation++;
