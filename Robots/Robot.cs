@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-internal class Robot(Planet planet, Location landingLocation)
+﻿internal class Robot(Planet planet, Location landingLocation)
 {
     public Planet Planet { get; } = planet;
     public Location Location { get; } = landingLocation;
@@ -14,12 +11,36 @@ internal class Robot(Planet planet, Location landingLocation)
 
     internal void MoveForward()
     {
-        throw new NotImplementedException();
+        switch (Location.Orientation)
+        {
+            case Orientation.North:
+                Location.Y++;
+                break;
+            case Orientation.East:
+                Location.X++;
+                break;
+            case Orientation.South:
+                Location.Y--;
+                break;
+            case Orientation.West:
+                Location.X--;
+                break;
+            default:
+                break;
+        }
     }
 
-    internal void Rotate(RotationDirection left)
+    internal void Rotate(RotationDirection rotationDirection)
     {
-        throw new NotImplementedException();
+        int orientation = (int)Location.Orientation;
+        if (rotationDirection == RotationDirection.Right)
+            orientation++;
+
+        if (rotationDirection == RotationDirection.Left)
+            orientation--;
+
+        // N.B: % is remainder, not modulo, hence adding 4 to avoid negatives
+        Location.Orientation = (Orientation)((4 + orientation) % 4);
     }
 }
 

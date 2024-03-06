@@ -1,5 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-Console.WriteLine("Hello, World! Mars to Earth!");
+﻿Console.WriteLine("Hello, World! Mars to Earth!");
 
 
 // TODO:  Take input for planet bounds

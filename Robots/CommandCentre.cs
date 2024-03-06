@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-
-
-public class CommandCentre(Planet planet)
+﻿public class CommandCentre(Planet planet)
 {
     private readonly Planet Planet = planet;
 
@@ -58,13 +55,15 @@ public class CommandCentre(Planet planet)
             Instruction.Forward,
             Instruction.Right,
             Instruction.Forward,
+            Instruction.Right,
+
         };
     }
 
     private string SerializeOutPut(RobotEndState robotEndState)
     {
         //TODO: add whether lost
-        return $"{robotEndState.X} {robotEndState.Y}";
+        return $"{robotEndState.X} {robotEndState.Y} {robotEndState.Orientation.ToString()[0]}";
     }
 }
 
