@@ -13,7 +13,7 @@ var navigationInstructions = "RFRFRFRF";
 
 var commandCentre = new CommandCentre(mars);
 
-var robot = commandCentre.ExecuteInstructions(landingInstructions, navigationInstructions);
+var endState = commandCentre.ExecuteInstructions(landingInstructions, navigationInstructions);
 
 // TODO: output end result
 
