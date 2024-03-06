@@ -1,7 +1,7 @@
 ﻿internal class Robot(Planet planet, Location landingLocation)
 {
     public Planet Planet { get; } = planet;
-    public Location Location { get; } = landingLocation;
+    public Location Location { get; set;  } = landingLocation;
     public bool IsLost { get; set; } = false;
 
     internal RobotEndState GetState()
@@ -11,23 +11,32 @@
 
     internal void MoveForward()
     {
+        if (IsLost)
+            return;
+
+        var location = new Location(Location.X, Location.Y, Location.Orientation);
+
         switch (Location.Orientation)
         {
             case Orientation.North:
-                Location.Y++;
+                location.Y++;
                 break;
             case Orientation.East:
-                Location.X++;
+                location.X++;
                 break;
             case Orientation.South:
-                Location.Y--;
+                location.Y--;
                 break;
             case Orientation.West:
-                Location.X--;
+                location.X--;
                 break;
             default:
                 break;
         }
+        if (Planet.IsOutOfBounds(location))
+            IsLost = true;
+        else
+            Location = location;
     }
 
     internal void Rotate(RotationDirection rotationDirection)

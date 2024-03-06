@@ -83,7 +83,7 @@ public class CommandCentre(Planet planet)
 
     private string SerializeOutput(RobotEndState robotEndState)
     {
-        var lostSuffix = robotEndState.IsLost ? "LOST" : "";
+        var lostSuffix = robotEndState.IsLost ? " LOST" : "";
         return $"{robotEndState.X} {robotEndState.Y} {robotEndState.Orientation.ToString()[0]}"
             + lostSuffix;
     }
