@@ -1,4 +1,6 @@
-﻿public class CommandCentre(Planet planet)
+﻿using System.ComponentModel;
+
+public class CommandCentre(Planet planet)
 {
     private readonly Planet Planet = planet;
 
@@ -8,7 +10,7 @@
         Robot robot = LandRobot(Planet, landingLocation);
         var navigationInstructionSet = ParseNavigationInstructions(navigationInstructions);
         var robotEndState = NavigateRobot(robot, navigationInstructionSet);
-        return SerializeOutPut(robotEndState);
+        return SerializeOutput(robotEndState);
     }
     private Robot LandRobot(Planet planet, Location landingLocation)
     {
@@ -30,7 +32,6 @@
                 case Instruction.Right:
                     robot.Rotate(RotationDirection.Right);
                     break;
-
             }
 
         }
@@ -39,31 +40,52 @@
 
     private Location ParseLandingInstructions(string landingInstructions)
     {
-        // TOOD: implement properly
-        return new Location(1, 1, Orientation.East);
+        var landingInstructionParts = landingInstructions.Split(null);
+        var x = int.Parse(landingInstructionParts[0]);
+        var y = int.Parse(landingInstructionParts[1]);
+        var orientation = landingInstructionParts[2] switch
+        {
+            "N" => Orientation.North,
+            "E" => Orientation.East,
+            "S" => Orientation.South,
+            "W" => Orientation.West,
+            _ => throw new InvalidEnumArgumentException(
+                $"Invalid orientation string: {landingInstructionParts[2]}"),
+        };
+
+        return new Location(x, y, orientation);
     }
 
     private List<Instruction> ParseNavigationInstructions(string navigationInstructions)
     {
-        // TOOD: implement properly
-        return new List<Instruction> { 
-            Instruction.Right,
-            Instruction.Forward,
-            Instruction.Right,
-            Instruction.Forward,
-            Instruction.Right,
-            Instruction.Forward,
-            Instruction.Right,
-            Instruction.Forward,
-            Instruction.Right,
+        List<Instruction> instructionsList = [];
 
-        };
+        foreach (char instructionChar in navigationInstructions)
+        {
+            switch (instructionChar)
+            {
+                case 'L':
+                    instructionsList.Add(Instruction.Left);
+                    break;
+                case 'R':
+                    instructionsList.Add(Instruction.Right);
+                    break;
+                case 'F':
+                    instructionsList.Add(Instruction.Forward);
+                    break;
+                default:
+                    throw new ArgumentException($"Invalid instruction character: {instructionChar}");
+            }
+        }
+
+        return instructionsList;
     }
 
-    private string SerializeOutPut(RobotEndState robotEndState)
+    private string SerializeOutput(RobotEndState robotEndState)
     {
-        //TODO: add whether lost
-        return $"{robotEndState.X} {robotEndState.Y} {robotEndState.Orientation.ToString()[0]}";
+        var lostSuffix = robotEndState.IsLost ? "LOST" : "";
+        return $"{robotEndState.X} {robotEndState.Y} {robotEndState.Orientation.ToString()[0]}"
+            + lostSuffix;
     }
 }
 
