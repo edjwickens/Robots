@@ -10,7 +10,7 @@ To run the application, you'll need:
 
 Clone this repository to your local machine:
 ```
-git clone <repository-url>
+git clone https://github.com/edjwickens/Robots.git
 ```
 
 ## Usage
@@ -63,3 +63,14 @@ Output:
 3 3 N LOST
 2 3 S
 ```
+
+## Tests
+The solution includes an XUnit test project with integration tests spanning the input to the output of the robot navigation. 
+The main scenarios are covered, but more fine-grained unit tests for edge cases would be a good idea, time allowing. 
+
+## Potential future improvements
+The logic for taking the boundary size could be extracted and unit tested.
+The logic for parsing and serializing the instructions and output could be extraced to enable alternative implementations, for example if the instruction protocol were changed.
+Validation of user input could be improved.
+Depending on future requirements, the Planet entity representing Mars could be added to a DI container as a singleton.
+A backwards command could be implemented in future, or a command to move multiple grid squares, so a Move() function on the Robot class could take positive or negative integers.
