@@ -1,7 +1,9 @@
-﻿internal class Robot(Planet planet, Location landingLocation)
+﻿using Robots;
+
+internal class Robot(Planet planet, Location landingLocation)
 {
     public Planet Planet { get; } = planet;
-    public Location Location { get; set;  } = landingLocation;
+    public Location Location { get; set; } = landingLocation;
     public bool IsLost { get; set; } = false;
 
     internal RobotEndState GetState()
@@ -34,7 +36,15 @@
                 break;
         }
         if (Planet.IsOutOfBounds(location))
+        {
             IsLost = true;
+            if(Planet.HasScent(location))
+                IsLost = false;
+
+            if(IsLost)
+                Planet.AddScent(location);
+
+        }
         else
             Location = location;
     }
@@ -53,14 +63,9 @@
     }
 }
 
-internal class RobotEndState : Location
+internal class RobotEndState(int x, int y, Orientation orientation, bool isLost) : Location(x, y, orientation)
 {
-    public RobotEndState(int x, int y, Orientation orientation, bool isLost) : base(x, y, orientation)
-    {
-        IsLost = isLost;
-    }
-
-    public bool IsLost { get; }
+    public bool IsLost { get; } = isLost;
 }
 
 enum RotationDirection

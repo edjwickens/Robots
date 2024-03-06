@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel;
 
+namespace Robots;
+
 public class CommandCentre(Planet planet)
 {
     private readonly Planet Planet = planet;
@@ -14,10 +16,11 @@ public class CommandCentre(Planet planet)
     }
     private Robot LandRobot(Planet planet, Location landingLocation)
     {
-        return new Robot(planet,  landingLocation);
+        // TODO: Add robot to planet or CommandCentre?
+        return new Robot(planet, landingLocation);
     }
 
-    private RobotEndState NavigateRobot(Robot robot, List<Instruction> navigationInstructionSet)
+    private static RobotEndState NavigateRobot(Robot robot, List<Instruction> navigationInstructionSet)
     {
         foreach (var instruction in navigationInstructionSet)
         {
@@ -38,7 +41,7 @@ public class CommandCentre(Planet planet)
         return robot.GetState();
     }
 
-    private Location ParseLandingInstructions(string landingInstructions)
+    private static Location ParseLandingInstructions(string landingInstructions)
     {
         var landingInstructionParts = landingInstructions.Split(null);
         var x = int.Parse(landingInstructionParts[0]);
@@ -56,7 +59,7 @@ public class CommandCentre(Planet planet)
         return new Location(x, y, orientation);
     }
 
-    private List<Instruction> ParseNavigationInstructions(string navigationInstructions)
+    private static List<Instruction> ParseNavigationInstructions(string navigationInstructions)
     {
         List<Instruction> instructionsList = [];
 
@@ -81,7 +84,7 @@ public class CommandCentre(Planet planet)
         return instructionsList;
     }
 
-    private string SerializeOutput(RobotEndState robotEndState)
+    private static string SerializeOutput(RobotEndState robotEndState)
     {
         var lostSuffix = robotEndState.IsLost ? " LOST" : "";
         return $"{robotEndState.X} {robotEndState.Y} {robotEndState.Orientation.ToString()[0]}"

@@ -1,9 +1,13 @@
 ﻿
-internal class Location(int x, int y, Orientation orientation)
+internal class Location(int x, int y, Orientation orientation): Coordinates(x, y)
+{
+    public Orientation Orientation { get; set; } = orientation;
+}
+
+internal class Coordinates(int x, int y)
 {
     public int X { get; set; } = x;
     public int Y { get; set; } = y;
-    public Orientation Orientation { get; set; } = orientation;
 }
 
 internal enum Orientation
